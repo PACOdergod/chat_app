@@ -15,11 +15,6 @@ class Labels extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(child: Column(children: [
 
-    // Text('No tienes cuenta?', 
-    //   style: TextStyle(color: Colors.grey, fontSize: 15, fontWeight: FontWeight.w300),
-    // ),
-    // SizedBox(height: 10,),
-
     GestureDetector(
       child: Text(this.text, 
         style: TextStyle(color: Colors.blue[600], fontSize: 18, fontWeight: FontWeight.bold),
