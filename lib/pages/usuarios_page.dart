@@ -58,13 +58,13 @@ class UsuariosPage extends StatelessWidget {
 
   ListTile _usuarioTile(Usuario usuario) {
     return ListTile(
-        title: Text(usuario.name),
-        leading: CircleAvatar(child: Text(usuario.name.substring(0,2)),),
+        title: Text(usuario.nombre),
+        leading: CircleAvatar(child: Text(usuario.nombre.substring(0,2)),),
         trailing: Container(
           height: 15, width: 15,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: usuario.online ? Colors.green : Colors.red
+            // color: usuario.online ? Colors.green : Colors.red
           ),
         ),
     );

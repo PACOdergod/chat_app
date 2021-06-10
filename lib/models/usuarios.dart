@@ -1,7 +1,7 @@
 import 'package:chat_app/models/usuario.dart';
 
 final usuariosList = [
-  Usuario('1', 'paco', 'paco@test.com', true),
-  Usuario('2', 'miguel', 'miguel@test.com', false),
-  Usuario('3', 'fernando', 'fernando@test.com', false),
+  Usuario(id:'1', nombre:'paco', email:'paco@test.com'),
+  Usuario(id:'2', nombre:'miguel', email:'miguel@test.com'),
+  Usuario(id:'3', nombre:'fernando', email:'fernando@test.com'),
 ];

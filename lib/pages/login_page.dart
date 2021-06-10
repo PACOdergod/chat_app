@@ -1,3 +1,4 @@
+import 'package:chat_app/helpers/show_alert.dart';
 import 'package:chat_app/services/auth_service.dart';
 import 'package:chat_app/widgets/boton_widget.dart';
 import 'package:chat_app/widgets/input_widget.dart';
@@ -49,11 +50,16 @@ class Formulario extends StatefulWidget {
 
 class _FormState extends State<Formulario> {
 
+
+
   final emailCtrl = TextEditingController();
   final passCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+
+    final authService = Provider.of<AuthService>(context);
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 40),
       child: Column(children: [
@@ -78,16 +84,24 @@ class _FormState extends State<Formulario> {
         SizedBox(height: 10,),
 
         CustomBotton(text: 'Ingrese',
-          onPress: (){
-            print(emailCtrl.text);
-            print(passCtrl.text);
-            final authService = Provider.of<AuthService>(context, listen: false);
+          onPress: authService.autenticando ? null 
+            : () async {
+              // print(emailCtrl.text);
+              // print(passCtrl.text);
 
-            authService.login(emailCtrl.text, passCtrl.text);
+              // para quitar el foco de donde sea q este
+              FocusScope.of(context).unfocus();
 
-          },
+              var loginOk = await authService.login(
+                emailCtrl.text.trim(), passCtrl.text.trim());
+
+              if (loginOk) {
+                // TODO:navegar a la siguiente pantalla
+              }else{
+                showAlert(context, 'Login fallo', 'Datos incorrectos');
+              }
+            },
         )
-
       ],),
     );
   }
