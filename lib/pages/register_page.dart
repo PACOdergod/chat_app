@@ -1,8 +1,12 @@
+import 'package:chat_app/helpers/show_alert.dart';
+import 'package:chat_app/services/auth_service.dart';
+import 'package:chat_app/services/type_res.dart';
 import 'package:chat_app/widgets/boton_widget.dart';
 import 'package:chat_app/widgets/input_widget.dart';
 import 'package:chat_app/widgets/labels_widget.dart';
 import 'package:chat_app/widgets/logo_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 class RegisterPage extends StatelessWidget {
@@ -29,7 +33,7 @@ class RegisterPage extends StatelessWidget {
 
               Container(
                 margin: EdgeInsets.only(bottom: 10),
-                child: Text('Terminoc y condiciones de uso', style: TextStyle(fontWeight: FontWeight.w200),)
+                child: Text('Terminos y condiciones de uso', style: TextStyle(fontWeight: FontWeight.w200),)
               ),
 
             ],
@@ -51,8 +55,12 @@ class _FormState extends State<Formulario> {
   final emailCtrl = TextEditingController();
   final passCtrl = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
+    
+    final authService = Provider.of<AuthService>(context);
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 40),
       child: Column(children: [
@@ -86,8 +94,22 @@ class _FormState extends State<Formulario> {
         SizedBox(height: 10,),
 
         CustomBotton(text: 'Registrar',
-          onPress: (){
-            print('boton');
+          onPress: authService.autenticando ? null :
+          () async {
+            FocusScope.of(context).unfocus();
+
+            var loginOk = await authService.register(
+              nameCtrl.text, emailCtrl.text, passCtrl.text, context);
+            
+            if (loginOk == TypeRes.ok) {
+                // TODO: conectar al socket server
+
+              Navigator.pushReplacementNamed(context, 'usuarios');
+            }
+            if (loginOk == TypeRes.serverError) {
+              showAlert(context, 'Registro fallo', 
+                'Hubo problemas en el servidor, intentelo mas tarde');
+            }
           },
         )
 

@@ -32,6 +32,8 @@ dependencies:
   provider:
   http:
   flutter_secure_storage: ^4.2.0
+  flutter_spinkit: "^4.1.2"
+
 
 dev_dependencies:
   flutter_test:

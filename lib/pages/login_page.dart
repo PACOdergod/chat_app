@@ -89,6 +89,8 @@ class _FormState extends State<Formulario> {
               // print(emailCtrl.text);
               // print(passCtrl.text);
 
+              //TODO: oscurecer la pantalla y poner un loading
+
               // para quitar el foco de donde sea q este
               FocusScope.of(context).unfocus();
 
@@ -96,7 +98,9 @@ class _FormState extends State<Formulario> {
                 emailCtrl.text.trim(), passCtrl.text.trim());
 
               if (loginOk) {
-                // TODO:navegar a la siguiente pantalla
+                // TODO: conectar al socket server
+
+                Navigator.pushReplacementNamed(context, 'usuarios');
               }else{
                 showAlert(context, 'Login fallo', 'Datos incorrectos');
               }
